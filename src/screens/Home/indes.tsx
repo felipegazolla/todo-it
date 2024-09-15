@@ -1,8 +1,17 @@
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { styles } from './styles'
 import { Clipboard, PlusCircle } from 'lucide-react-native'
+import { Task } from '../../components/Task';
 
 export default function Home() {
+  const tasks = [
+    'Ver a previsao do tempo',
+    'Colocar o despertador',
+    'Passear com a Mirian',
+    'Brincar com o Mauricio'
+  ]
+
+
   return (
     <View style={styles.container}>
 
@@ -43,21 +52,29 @@ export default function Home() {
 
         <View style={styles.separator} />
 
+        <FlatList 
+          data={tasks}
+          keyExtractor={item => item}
+          renderItem={({ item }) => (
+            <Task task={item} key={item} />
+          )}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <View style={styles.empty}>
+            <Clipboard size={80} color='#333333'/>
+            <Text style={styles.textemptybold}>
+            Você ainda não tem tarefas cadastradas
+            </Text>
+            <Text style={styles.textempty}>
+            Crie tarefas e organize seus itens a fazer
+            </Text>
 
-        <View style={styles.empty}>
-          <Clipboard size={80} color='#333333'/>
-          <Text style={styles.textemptybold}>
-          Você ainda não tem tarefas cadastradas
-          </Text>
-          <Text style={styles.textempty}>
-          Crie tarefas e organize seus itens a fazer
-          </Text>
-
-        </View>
-
+          </View>
+          }
+        />
 
         </View>
       </View>
     </View>
   );
-}
+  }
