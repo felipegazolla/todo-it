@@ -1,16 +1,44 @@
-import { FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, FlatList, Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { styles } from './styles'
 import { Clipboard, PlusCircle } from 'lucide-react-native'
 import { Task } from '../../components/Task';
+import { useState } from 'react';
 
 export default function Home() {
-  const tasks = [
-    'Ver a previsao do tempo',
-    'Colocar o despertador',
-    'Passear com a Mirian',
-    'Brincar com o Mauricio'
-  ]
+  const [tasks, setTasks] = useState<string[]>([])
+  const [taskName, setTaskName] = useState('')
 
+  function handleTaskAdd() {
+    if (taskName.length <= 0) {
+      return Alert.alert('Digite o nome da tarefa!', 'Para adicionar uma tarefa é preciso dar um nome.')
+    }
+
+    if (tasks.includes(taskName)) {
+      return Alert.alert('Tarefa existente!', 'Já existe uma tarefa com este nome na lista.')
+    }
+
+    setTasks(prevState => [...prevState, taskName])
+    setTaskName('')
+  }
+
+  function handleTaskCheck() {
+    console.log('Task checked!')
+  }
+
+  function handleRemoveTask(name: string) {
+    Alert.alert('Deseja remover a tarefa?', 'Tem certeza que deseja remover esta tarefa da lista?', [
+      {
+        text: 'Sim',
+        onPress: () => {
+          setTasks(prevState => prevState.filter(task => task !== name))
+        }
+      },
+      {
+        text: 'Não',
+        style: 'cancel',
+      }
+    ])
+  }
 
   return (
     <View style={styles.container}>
@@ -18,8 +46,8 @@ export default function Home() {
       <Image source={require('../../../assets/logo.png')} alt='todo logo' />
 
       <View style={styles.form}>
-      <TextInput style={styles.input} placeholder='Adicione uma nova tarefa' placeholderTextColor="#808080"/>
-      <TouchableOpacity style={styles.button}>
+      <TextInput value={taskName} onChangeText={setTaskName} style={styles.input} placeholder='Adicione uma nova tarefa' placeholderTextColor="#808080"/>
+      <TouchableOpacity onPress={handleTaskAdd} style={styles.button}>
         <PlusCircle color='#FFF' size={20} />
       </TouchableOpacity>
       </View>
@@ -56,7 +84,7 @@ export default function Home() {
           data={tasks}
           keyExtractor={item => item}
           renderItem={({ item }) => (
-            <Task task={item} key={item} />
+            <Task name={item} key={item} onCheck={handleTaskCheck} onRemove={() => handleRemoveTask(item)} />
           )}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={

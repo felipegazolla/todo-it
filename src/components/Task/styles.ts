@@ -17,8 +17,10 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
   },
   text: {
+    flex: 1,
     color: '#F2F2F2',
     fontSize: 16,
     maxWidth: 235,
+    textAlign: 'left',
   },
 })
