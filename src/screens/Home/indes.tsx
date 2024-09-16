@@ -13,9 +13,8 @@ import { Task } from '../../components/Task'
 import { useState } from 'react'
 
 export default function Home() {
-  const [tasks, setTasks] = useState<string[]>([])
+  const [tasks, setTasks] = useState<{ name: string; done: boolean }[]>([])
   const [taskName, setTaskName] = useState('')
-  const [doneTask, setDoneTask] = useState<string[]>([])
 
   function handleTaskAdd() {
     if (taskName.length <= 0) {
@@ -25,19 +24,23 @@ export default function Home() {
       )
     }
 
-    if (tasks.includes(taskName)) {
+    if (tasks.some(task => task.name === taskName)) {
       return Alert.alert(
         'Tarefa existente!',
         'Já existe uma tarefa com este nome na lista.'
       )
     }
 
-    setTasks(prevState => [...prevState, taskName])
+    setTasks(prevState => [...prevState, { name: taskName, done: false }])
     setTaskName('')
   }
 
-  function handleTaskCheck() {
-    console.log('Task checked!')
+  function handleTaskCheck(taskName: string) {
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.name === taskName ? { ...task, done: !task.done } : task
+      )
+    )
   }
 
   function handleRemoveTask(name: string) {
@@ -48,7 +51,7 @@ export default function Home() {
         {
           text: 'Sim',
           onPress: () => {
-            setTasks(prevState => prevState.filter(task => task !== name))
+            setTasks(prevState => prevState.filter(task => task.name !== name)) // Fechamento de chave correto aqui
           },
         },
         {
@@ -88,7 +91,7 @@ export default function Home() {
             <View style={styles.desirecounters}>
               <Text style={styles.done}>Concluídas</Text>
               <View style={styles.backgroudnCounter}>
-                <Text style={styles.counter}>{doneTask.length}</Text>
+                <Text style={styles.counter}>{tasks.filter(task => task.done).length}</Text>
               </View>
             </View>
           </View>
@@ -97,13 +100,13 @@ export default function Home() {
 
           <FlatList
             data={tasks}
-            keyExtractor={item => item}
+            keyExtractor={item => item.name}
             renderItem={({ item }) => (
               <Task
-                name={item}
-                key={item}
-                onCheck={() => handleTaskCheck()}
-                onRemove={() => handleRemoveTask(item)}
+                name={item.name}
+                done={item.done}
+                onCheck={() => handleTaskCheck(item.name)}
+                onRemove={() => handleRemoveTask(item.name)}
               />
             )}
             showsVerticalScrollIndicator={false}

@@ -86,6 +86,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#333333',
     marginTop: 40,
+    marginBottom: 40,
   },
   empty: {
     alignItems: 'center',
