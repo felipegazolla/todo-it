@@ -1,6 +1,6 @@
-import { Text, TouchableOpacity, View } from "react-native";
-import { styles } from "./styles";
-import { Circle, Trash } from "lucide-react-native";
+import { Text, TouchableOpacity, View } from 'react-native'
+import { styles } from './styles'
+import { Circle, Trash } from 'lucide-react-native'
 
 type Props = {
   name: string
@@ -9,17 +9,14 @@ type Props = {
 }
 
 export function Task({ name, onCheck, onRemove }: Props) {
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onCheck} >
-        <Circle color="#4EA8DE"/>
+      <TouchableOpacity onPress={onCheck}>
+        <Circle color="#4EA8DE" />
       </TouchableOpacity>
-        <Text style={styles.text}>
-          {name}
-        </Text>
+      <Text style={styles.text}>{name}</Text>
       <TouchableOpacity onPress={onRemove}>
-        <Trash color="#808080"/>
+        <Trash color="#808080" />
       </TouchableOpacity>
     </View>
   )

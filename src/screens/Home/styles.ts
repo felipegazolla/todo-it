@@ -1,13 +1,13 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      backgroundColor: '#0D0D0D',
-      paddingTop: 80,
-      alignItems: 'center',
-      fontFamily: 'Inter'
-    },
+    flex: 1,
+    backgroundColor: '#0D0D0D',
+    paddingTop: 80,
+    alignItems: 'center',
+    fontFamily: 'Inter',
+  },
   form: {
     marginTop: 40,
     width: 327,
@@ -16,13 +16,13 @@ export const styles = StyleSheet.create({
     gap: 8,
   },
   input: {
-      width: 271,
-      height: 54,
-      backgroundColor: '#262626',
-      borderRadius: 6,
-      padding: 16,
-      color: '#FFFFFF',
-      fontSize: 16,
+    width: 271,
+    height: 54,
+    backgroundColor: '#262626',
+    borderRadius: 6,
+    padding: 16,
+    color: '#FFFFFF',
+    fontSize: 16,
   },
   button: {
     backgroundColor: '#1E6F9F',
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     height: 54,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 6
+    borderRadius: 6,
   },
   backgroundTasks: {
     backgroundColor: '#1A1A1A',
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     marginTop: 190,
     height: '100%',
     position: 'absolute',
-    zIndex: -1
+    zIndex: -1,
   },
   tasks: {
     marginTop: 56,
@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
   },
   countertasks: {
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   backgroudnCounter: {
     backgroundColor: '#333333',
@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
   desirecounters: {
     flexDirection: 'row',
     gap: 10,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   separator: {
     height: 1,
@@ -100,6 +100,5 @@ export const styles = StyleSheet.create({
   textempty: {
     color: '#808080',
     fontSize: 16,
-
   },
 })
